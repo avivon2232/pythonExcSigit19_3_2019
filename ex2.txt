@@ -1,0 +1,18 @@
+#2a
+def calcSum():
+    num = input("Please enter a number to sum up.\nPlease \"stop\" to stop the sum: ")
+    if num != "stop":
+        return int(num) + calcSum()
+    return 0
+print(calcSum())
+
+#2b
+def calcSumFromString(str):
+    str = str.split(',')
+    count = sum = 0
+    while count < len(str):
+        sum += int(str[count])
+        count += 1
+    return sum
+
+print(calcSumFromString("1,2,3,4,5"))
