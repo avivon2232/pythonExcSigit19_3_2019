@@ -1,0 +1,66 @@
+game = [[1,2,0],
+        [2,1,0],
+        [2,1,1]]
+
+def check_row_for_a_win(row):
+    if(game[row][0] == game[row][1] == game[row][2]):
+        return (True, game[row][0])
+    return (False, 0)
+
+def check_col_for_a_win(col):
+    if (game[0][col] == game[1][col] == game[2][col]):
+        return (True,game[0][col])
+    return (False, 0)
+
+def check_diagonals_for_a_win():
+    if(game[0][0] == game[1][1] == game[2][2] or game[0][2] == game[1][1] == game[2][0]):
+        return (True, game[1][1])
+    return (False, 0)
+
+def check_if_game_is_finished_for_draw():
+    row, col = 0, 0
+    while row < 3:
+        if col < 3:
+            if game[row][col]==0:
+                return False
+            col += 1
+        else:
+            row += 1
+    return True
+
+def check_win():
+    check, winner = False, 0
+    count, func = 0, 0
+    while func < 3:
+        if check is False and func == 0:
+            while count < 3:
+                check, winner = check_row_for_a_win(count)
+                if check is True:
+                    break
+                else:
+                    count += 1
+            func += 1
+            count = 0
+        if check is False and func == 1:
+            while count < 3:
+                check, winner = check_col_for_a_win(count)
+                if check is True:
+                    break
+                else:
+                    count += 1
+            func += 1
+        if check is False and func == 2:
+            check, winner = check_diagonals_for_a_win()
+            if check is True:
+                break
+            else:
+                count += 1
+        break
+    if check is True:
+        print("The winner is: ", winner)
+    else:
+        if check_if_game_is_finished_for_draw() is True:
+            print("The game ended with a draw.")
+        else:
+            print("The game is unfinished without a winner.")
+check_win()

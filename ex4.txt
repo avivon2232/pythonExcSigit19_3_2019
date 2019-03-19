@@ -1,0 +1,13 @@
+st = "aabbbccsdd"
+def shrink_string(st):
+    new_str = ""
+    char_count, string_count = 1, 0
+    while string_count < len(st) - 1:
+        if st[string_count] == st[string_count + 1]:
+            char_count += 1
+        else:
+            new_str += st[string_count] + str(char_count)
+            char_count = 1
+        string_count += 1
+    return new_str + st[string_count] + str(char_count)
+print(shrink_string(st))

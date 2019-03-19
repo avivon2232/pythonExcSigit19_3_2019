@@ -1,0 +1,23 @@
+def sumIdNumbers(almostId):
+    summedId = 0
+    multiplier = 2
+    #multiplier += multiplier % 2
+    while almostId != 0:
+        temp_to_sum = almostId % 10
+        temp_to_sum *= multiplier
+        while temp_to_sum > 9:
+            temp_to_sum = temp_to_sum / 10 + temp_to_sum % 10
+        if multiplier == 1:
+            multiplier = 2
+        else:
+            multiplier = 1
+        almostId /= 10
+        summedId += temp_to_sum
+    summedId = (10 - summedId % 10) % 10
+    return summedId
+
+id = 543700421
+if id % 10 == sumIdNumbers(id / 10):
+    print("Valid ID.")
+else:
+    print("Invalid ID.")

@@ -1,0 +1,49 @@
+secret_codes = [1443, 3456, 2234, 6045, 6958]
+balance_per_code = [1240, 5000, 3000, 10000, 100250]
+
+temp_code = ''
+
+
+def look_for_balance_by_code_helper(code, count):
+    if count < len(secret_codes):
+        if code == secret_codes[count]:
+            return (balance_per_code[count], count)
+        return look_for_balance_by_code_helper(code, count+1)
+    return (None, None)
+
+def look_for_balance_by_code(code):
+    return look_for_balance_by_code_helper(code, 0)
+
+def help_man():
+    return "\nPlease enter 1 to print your balance.\n" \
+          "Please enter 2 to draw money from your account.\n" \
+          "Please enter 3 to change your secret code.\n" \
+          "Please enter 4 to exit the program.\n"
+
+while True:
+    temp_code = int(eval(input("Please enter your secret code: ")))
+    (balance, code_number) = look_for_balance_by_code(temp_code)
+    if balance is not None:
+        input_data = int(eval(input(help_man())))
+        if input_data == 1:
+            print(balance)
+        elif input_data == 2:
+            input_data = int(eval(input("\nPlease enter 1 to draw 20.\n"
+                                   "Please enter 2 to draw 50.\n"
+                                   "Please enter 3 to draw different amount of money.\n")))
+            if input_data == 1:
+                balance_per_code[code_number] -= 20
+            elif input_data == 2:
+                balance_per_code[code_number] -= 50
+            else:
+                input_data = int(eval(input("\nPlease enter amount of money to draw:\n")))
+                balance_per_code[code_number] -= input_data
+        elif input_data == 3:
+            input_data = int(eval(input("\nPlease enter your new secret code: \n"
+                                   "*enter -1 to abort \n")))
+            if input_data != -1:
+                secret_codes[code_number] = input_data
+        elif input_data == 4:
+            break
+    else:
+        print("Non-existant code, Try again.")
